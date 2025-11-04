@@ -9,7 +9,6 @@ export interface IConfig {
 }
 
 export interface ArgsConfig { 
-    react?: boolean,
     typescript?: boolean,
     vue?: boolean,
 
@@ -17,12 +16,6 @@ export interface ArgsConfig {
 
 export type UConfig = ArgsConfig & IConfig;
 
-export interface WebpackConfig extends Configuration { 
-    devServer?: {
-        port?: number,
-        open?: boolean,
-        hot?: boolean,
-        historyApiFallback?: boolean,
-        proxy?: any
-    };
+export interface WebpackConfig {
+    (config: UConfig): Configuration
 }

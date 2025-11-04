@@ -1,6 +1,9 @@
 // console.log("Hello World from cli");
 import { program } from "commander";
 import { IConfig } from "./types";
+import start from "./commanders/start";
+import build from "./commanders/build";
+import init from "./commanders/init";
 
 const pkg = require("../package.json");
 const cwd = process.cwd();
@@ -31,11 +34,11 @@ program.version(`当前版本：${pkg.version}`, "-v, --version", "查看版本�
 // 2. 定义 init 命令 <name> 初始化项目
 program.command('init')
     .description('初始化项目')
-    .option('-r, --react', '初始化react项目')
     .option('-v, --vue', '初始化vue项目')
     .option('-t, --typescript', '初始化typescript项目')
     .action((args) => {
-        console.log('init args',args);
+        console.log('init args',{...config, ...args});
+        init({...config, ...args})
     });
 
 // 3. start 命令 启动项目
@@ -44,7 +47,8 @@ program.command('start')
     .option('-m, --mock', '启动mock服务')
     .option('-p, --port <port>', '启动端口')
     .action((args) => {
-        console.log('start args',args);
+        // console.log('start args',args);
+        start({...config})
     })
 
 // 4. build 命令 打包项目
@@ -53,10 +57,12 @@ program.command('build')
     .option('-m, --mock', '打包mock服务')
     .option('-p, --port <port>', '打包端口')
     .action((args) => {
-        console.log('build args',args);
+        // console.log('build args', args);
+        build(config)
     })
 
 // 5. publish
+// 做git标准检查（husky），跑单测，自动化执行add，commit push，执行自动构建（build）
 program.command('publish')
     .description('发布项目')
     .option('-m, --mock', '发布mock服务')
