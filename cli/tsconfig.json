@@ -1,0 +1,13 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "baseUrl": "./lib",
+    "outDir": "lib",
+    "declarationDir": "./lib/types"
+  },
+  "include": ["./src/**/*"]
+}
